@@ -9,13 +9,7 @@ const movies = [
   { title: "Pulp Fiction", genere: "Thriller" },
 ];
 
-const generi = [
-  "Scegli un Genere...",
-  "Fantascienza",
-  "Thriller",
-  "Romantico",
-  "Azione",
-];
+const generi = ["Generi...", "Fantascienza", "Thriller", "Romantico", "Azione"];
 
 // export
 export default function Main() {
@@ -58,7 +52,7 @@ export default function Main() {
         <select
           id="disabledSelect"
           className="form-select"
-          placeholder="Scegli un genere"
+          aria-placeholder="Scegli un genere"
           value={""}
           onChange={(e) => selectGenere(e.target.value)}
         >
