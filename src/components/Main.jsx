@@ -1,32 +1,49 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const movies = [
-  { title: "Inception", genre: "Fantascienza" },
-  { title: "Il Padrino", genre: "Thriller" },
-  { title: "Titanic", genre: "Romantico" },
-  { title: "Batman", genre: "Azione" },
-  { title: "Interstellar", genre: "Fantascienza" },
-  { title: "Pulp Fiction", genre: "Thriller" },
+  { title: "Inception", genere: "Fantascienza" },
+  { title: "Il Padrino", genere: "Thriller" },
+  { title: "Titanic", genere: "Romantico" },
+  { title: "Batman", genere: "Azione" },
+  { title: "Interstellar", genere: "Fantascienza" },
+  { title: "Pulp Fiction", genere: "Thriller" },
 ];
 
-useState;
+const generi = [
+  "Scegli un Genere...",
+  "Fantascienza",
+  "Thriller",
+  "Romantico",
+  "Azione",
+];
 
 // export
 export default function Main() {
+  const [genreStatus, selectGenere] = useState("");
+  const [filteredMovies, selectfilteredMovies] = useState(movies);
+
+  // effect
+  useEffect(() => {
+    const newfilteredMovies = movies.filter((movie) =>
+      movie.genere.includes(genreStatus)
+    );
+    selectfilteredMovies(newfilteredMovies);
+    console.log(filteredMovies);
+  }, [genreStatus]);
   return (
     <>
       <div className="container">
         <div className="row g-2 my-2 mt-5">
-          {movies.map((movie, i) => {
+          {filteredMovies.map((movie, i) => {
             return (
-              <div className="col-4">
+              <div key={i} className="col-4">
                 <div className="card">
                   <div className="card-head text-center p-2">
                     {"Titolo = " + movie.title}
                   </div>
                   <hr />
                   <div className="card-body text-center ">
-                    {"Genere = " + movie.genre}
+                    {"Genere = " + movie.genere}
                   </div>
                 </div>
               </div>
@@ -35,20 +52,20 @@ export default function Main() {
         </div>
       </div>
       <div className="card">
-        <label for="disabledSelect" class="form-label p-2">
+        <label htmlFor="disabledSelect" className="form-label p-2">
           Scegli un genere
         </label>
         <select
           id="disabledSelect"
-          class="form-select"
-          aria-placeholder="Scegli un genere"
+          className="form-select"
+          placeholder="Scegli un genere"
+          value={""}
+          onChange={(e) => selectGenere(e.target.value)}
         >
-          {movies.map((generi, i) => {
+          {generi.map((g, i) => {
             return (
-              <option>
-                <ul>
-                  <li>{generi.genre}</li>
-                </ul>
+              <option key={i} value={g}>
+                {g}
               </option>
             );
           })}
